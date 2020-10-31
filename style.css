@@ -1,0 +1,13 @@
+body,
+.item {
+  background-color: rgb(32, 32, 32);
+}
+
+.item {
+  border: none;
+}
+
+.index {
+  font-size: 2rem;
+  color: yellow;
+}
