@@ -1,7 +1,5 @@
 const list = document.querySelector('#list');
-const searchInput = document.querySelector('#search-input');
 const searchForm = document.querySelector('#search-form');
-const reloadBtn = document.querySelector('#reload-btn');
 
 let steps = [];
 let images = [];
@@ -46,17 +44,17 @@ function getItems(steps, images) {
 function renderItems(items) {
   items.forEach((item, i) => {
     list.innerHTML += `
-          <li class="item list-group-item">
-            <div class="card mb-3 text-white bg-dark" style="max-width: 600px">
-              <img class="card-img-top" src="${item[1]}" alt="Step ${i} image">
-              <div class="card-body">
-                <h5 class="card-title">
-                  <span class="index">${++i} </span> ${item[0]}
-                </h5>
-              </div>
-            </div>
-          </li>
-        `;
+      <li class="item list-group-item">
+        <div class="card mb-3 text-white bg-dark" style="max-width: 600px">
+          <img class="card-img-top" src="${item[1]}" alt="Step ${i} image">
+          <div class="card-body">
+            <h5 class="card-title">
+              <span class="index">${++i} </span> ${item[0]}
+            </h5>
+          </div>
+        </div>
+      </li>
+    `;
   });
 }
 
