@@ -1,10 +1,10 @@
 const list = document.querySelector('#list');
 
-steps = [];
-images = [];
-items = [];
+const steps = [];
+const images = [];
+let items = [];
 
-function randomNumer(min, max) {
+function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
@@ -39,7 +39,7 @@ async function loadImages(count) {
 }
 
 function combineItems() {
-  count = randomNumer(4, 13);
+  const count = randomNumber(4, 13);
   console.log(count);
   loadSteps(count).then(() => {
     loadImages(count).then(() => {
@@ -48,14 +48,14 @@ function combineItems() {
         Object.values(images[0])[i],
       ]);
 
-      items.forEach((item, index) => {
+      items.forEach((item, i) => {
         list.innerHTML += `
           <li class="item list-group-item">
             <div class="card mb-3 text-white bg-dark" style="max-width: 600px">
               <img class="card-img-top" src="${item[1]}" alt="Card image cap">
               <div class="card-body">
                 <h5 class="card-title">
-                  <span class="index">${++index}:</span> ${item[0]}
+                  <span class="index">${++i} </span> ${item[0]}
                 </h5>
               </div>
             </div>
