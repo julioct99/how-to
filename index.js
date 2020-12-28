@@ -1,8 +1,5 @@
-const list = document.querySelector('#list');
-
 const steps = [];
 const images = [];
-let items = [];
 
 function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
@@ -17,10 +14,8 @@ async function loadSteps(count) {
         useQueryString: true,
       },
     })
-    .then((res) => {
-      steps.push(res.data);
-    })
-    .catch((err) => console.log(err));
+    .then(res => steps.push(res.data))
+    .catch(err => console.log(err));
 }
 
 async function loadImages(count) {
@@ -32,24 +27,21 @@ async function loadImages(count) {
         useQueryString: true,
       },
     })
-    .then((res) => {
-      images.push(res.data);
-    })
-    .catch((err) => console.log(err));
+    .then(res => images.push(res.data))
+    .catch(err => console.log(err));
 }
 
-function combineItems() {
-  const count = randomNumber(4, 13);
-  console.log(count);
-  loadSteps(count).then(() => {
-    loadImages(count).then(() => {
-      items = Object.values(steps[0]).map((element, i) => [
-        element,
-        Object.values(images[0])[i],
-      ]);
+function getItems(steps, images) {
+  return Object.values(steps[0]).map((element, i) => [
+    element,
+    Object.values(images[0])[i],
+  ]);
+}
 
-      items.forEach((item, i) => {
-        list.innerHTML += `
+function renderItems(items) {
+  const list = document.querySelector('#list');
+  items.forEach((item, i) => {
+    list.innerHTML += `
           <li class="item list-group-item">
             <div class="card mb-3 text-white bg-dark" style="max-width: 600px">
               <img class="card-img-top" src="${item[1]}" alt="Card image cap">
@@ -61,9 +53,16 @@ function combineItems() {
             </div>
           </li>
         `;
-      });
-    });
   });
 }
 
-combineItems();
+async function main() {
+  const count = randomNumber(4, 13);
+
+  await loadSteps(count);
+  await loadImages(count);
+
+  renderItems(getItems(steps, images));
+}
+
+main();
