@@ -13,10 +13,33 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <a
+      class="btn btn-lg btn-outline-warning ml-3 mt-3"
+      href="https://github.com/julioct99/how-to"
+      ><i class="fa fa-github" aria-hidden="true"></i
+    ></a>
     <div class="container text-center mt-5">
+      <h1 class="display-2">How to:</h1>
+      <form id="search-form">
+        <input
+          id="search-input"
+          class="form-control form-control-lg mb-2 text-center"
+          type="search"
+          placeholder="What do you want to do?"
+          autocomplete="off"
+        />
+        <button id="reload-btn" class="btn btn-success mb-5 font-weight-bold">
+          <i class="fa fa-search" aria-hidden="true"></i>
+          SEARCH
+        </button>
+      </form>
       <ul id="list" class="list-group align-items-center"></ul>
     </div>
 

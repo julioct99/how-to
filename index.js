@@ -1,11 +1,16 @@
-const steps = [];
-const images = [];
+const list = document.querySelector('#list');
+const searchInput = document.querySelector('#search-input');
+const searchForm = document.querySelector('#search-form');
+const reloadBtn = document.querySelector('#reload-btn');
+
+let steps = [];
+let images = [];
 
 function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
-async function loadSteps(count) {
+async function fetchSteps(count) {
   await axios
     .get(`https://hargrimm-wikihow-v1.p.rapidapi.com/steps?count=${count}`, {
       headers: {
@@ -18,7 +23,7 @@ async function loadSteps(count) {
     .catch(err => console.log(err));
 }
 
-async function loadImages(count) {
+async function fetchImages(count) {
   await axios
     .get(`https://hargrimm-wikihow-v1.p.rapidapi.com/images?count=${count}`, {
       headers: {
@@ -39,12 +44,11 @@ function getItems(steps, images) {
 }
 
 function renderItems(items) {
-  const list = document.querySelector('#list');
   items.forEach((item, i) => {
     list.innerHTML += `
           <li class="item list-group-item">
             <div class="card mb-3 text-white bg-dark" style="max-width: 600px">
-              <img class="card-img-top" src="${item[1]}" alt="Card image cap">
+              <img class="card-img-top" src="${item[1]}" alt="Step ${i} image">
               <div class="card-body">
                 <h5 class="card-title">
                   <span class="index">${++i} </span> ${item[0]}
@@ -56,13 +60,25 @@ function renderItems(items) {
   });
 }
 
-async function main() {
+function clearList() {
+  list.innerHTML = '';
+  steps = [];
+  images = [];
+}
+
+function loadSearchListener() {
+  searchForm.addEventListener('submit', event => {
+    loadSteps();
+    event.preventDefault();
+  });
+}
+
+async function loadSteps() {
+  clearList();
   const count = randomNumber(4, 13);
-
-  await loadSteps(count);
-  await loadImages(count);
-
+  await fetchSteps(count);
+  await fetchImages(count);
   renderItems(getItems(steps, images));
 }
 
-main();
+loadSearchListener();
